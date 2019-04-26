@@ -23,6 +23,7 @@ ToDo
 
 The rhythm game focus on the simulated performance of musical instruments, and require players to press keys on the keyboard correctly in a sequence dictated on the screen, which helps to increase the score. When the music is finished, the score appears and if a new score is higher, current highest score will be covered. 
 However, if the player fails to press the key as the icon tells, a miss will be counted. Up to 3 misses before the music ends leads to the 'game over'.
+To run the game, a simple method is to use the command 'python3 main.py' where the project folder is placed.
 
 Author
 
