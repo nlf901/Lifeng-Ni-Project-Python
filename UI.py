@@ -12,8 +12,10 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 NOT_SELECTED = (129,129,129)
 SETTING_BAR = (62, 96, 111)
-EASY = (12, 232, 118)
-HARD = (232, 44, 12)
+EASY = (102, 204, 0)
+NORMAL = (51, 51, 255)
+HARD = (255, 51, 51)
+MASTER = (127, 0, 255)
 TIMEBAR = (255, 0, 98)
 
 MODE_GAME_READY = False
@@ -42,26 +44,25 @@ class button_main(pygame.sprite.Sprite):
         self.mouse = pygame.mouse.get_pos()
         self.click = pygame.mouse.get_pressed()
         if self.x + 150 > self.mouse[0] > self.x and self.y + 90 > self.mouse[1] > self.y:
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', self.font_size + 30)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', self.font_size + 30)
             txt = font.render(self.msg, True, WHITE)
 
-            #pygame.mixer.Sound("Sound\sound4.ogg").play()
             if self.click[0] == 1 and type == 1:
-                pygame.mixer.Sound("Sound\sound2.ogg").play()
+                pygame.mixer.Sound("Sound/sound2.ogg").play()
                 pygame.time.delay(500)
                 return 2
             elif self.click[0] == 1 and type == 2:
-                pygame.mixer.Sound("Sound\sound2.ogg").play()
+                pygame.mixer.Sound("Sound/sound2.ogg").play()
                 pygame.time.delay(500)
                 return 3
             elif self.click[0] == 1 and type == 3:
-                pygame.mixer.Sound("Sound\sound2.ogg").play()
-                pygame.mixer.Sound("Sound\sound2.ogg").stop()
+                pygame.mixer.Sound("Sound/sound2.ogg").play()
+                pygame.mixer.Sound("Sound/sound2.ogg").stop()
                 pygame.time.delay(150)
                 return 4
 
         else:
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', self.font_size)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', self.font_size)
             txt = font.render(self.msg, True, NOT_SELECTED)
 
         self.screen.blit(txt,[self.x, self.y])
@@ -82,60 +83,60 @@ class button_SongList(pygame.sprite.Sprite):
         self.button2_x = button2_x
         self.button2_y = button2_y
         self.button2_msg = button2_msg
-		self.button3_x = button3_x
+        self.button3_x = button3_x
         self.button3_y = button3_y
         self.button3_msg = button3_msg
-		self.button4_x = button4_x
+        self.button4_x = button4_x
         self.button4_y = button4_y
         self.button4_msg = button4_msg
         self.screen = screen
 
     def update(self, selected):
         if selected ==1:
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 32)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 32)
             self.easy = font.render(self.button1_msg, True, EASY)
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
             self.normal = font.render(self.button2_msg, True, NOT_SELECTED)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.hard = font.render(self.button2_msg, True, NOT_SELECTED)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.master = font.render(self.button2_msg, True, NOT_SELECTED)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.hard = font.render(self.button3_msg, True, NOT_SELECTED)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.master = font.render(self.button4_msg, True, NOT_SELECTED)
             self.selected = 1
         if selected == 2:
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 32)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 32)
             self.easy = font.render(self.button1_msg, True, NOT_SELECTED)
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
             self.normal = font.render(self.button2_msg, True, NORMAL)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.hard = font.render(self.button2_msg, True, NOT_SELECTED)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.master = font.render(self.button2_msg, True, NOT_SELECTED)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.hard = font.render(self.button3_msg, True, NOT_SELECTED)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.master = font.render(self.button4_msg, True, NOT_SELECTED)
             self.selected = 2
-		if selected == 3:
-		    font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 32)
+        if selected == 3:
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 32)
             self.easy = font.render(self.button1_msg, True, NOT_SELECTED)
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
             self.normal = font.render(self.button2_msg, True, NOT_SELECTED)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.hard = font.render(self.button2_msg, True, HARD)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.master = font.render(self.button2_msg, True, NOT_SELECTED)
-			self.selected = 3
-		if selected == 4:
-		    font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 32)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.hard = font.render(self.button3_msg, True, HARD)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.master = font.render(self.button4_msg, True, NOT_SELECTED)
+            self.selected = 3
+        if selected == 4:
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 32)
             self.easy = font.render(self.button1_msg, True, NOT_SELECTED)
-            font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
             self.normal = font.render(self.button2_msg, True, NOT_SELECTED)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.hard = font.render(self.button2_msg, True, NOT_SELECTED)
-			font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 25)
-            self.master = font.render(self.button2_msg, True, MASTER)
-			self.selected = 4
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.hard = font.render(self.button3_msg, True, NOT_SELECTED)
+            font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 25)
+            self.master = font.render(self.button4_msg, True, MASTER)
+            self.selected = 4
 
         self.screen.blit(self.easy, [self.button1_x, self.button1_y])
-		self.screen.blit(self.normal, [self.button2_x, self.button2_y])
+        self.screen.blit(self.normal, [self.button2_x, self.button2_y])
         self.screen.blit(self.hard, [self.button3_x, self.button3_y])
-		self.screen.blit(self.master, [self.button4_x, self.button4_y])
+        self.screen.blit(self.master, [self.button4_x, self.button4_y])
 
     def get_mode(self):
         return self.selected
@@ -151,7 +152,7 @@ class button_back(pygame.sprite.Sprite):
         self.mouse = pygame.mouse.get_pos()
         self.click = pygame.mouse.get_pressed()
 
-        font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 20)
+        font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 20)
         back_txt = font.render("back",True,WHITE)
         self.screen.blit(back_txt, [self.x, self.y])
         if 75 > self.mouse[0] > 25 and  25 < self.mouse[1] <  50:
@@ -160,8 +161,8 @@ class button_back(pygame.sprite.Sprite):
 
 
 class MainLogo(pygame.sprite.Sprite):
-    Text = "BLUE"
-    font = pygame.font.Font('Resource\Font\MASQUE__.ttf',65)
+    Text = "AniBeat"
+    font = pygame.font.Font('Resource/Font/MASQUE__.ttf',65)
     def __init__(self,x,y):
             pygame.sprite.Sprite.__init__(self)
             self.image = pygame.Surface([250,250])
@@ -199,11 +200,11 @@ class SongList(pygame.sprite.Sprite):
 
     SongSpeed = 1
 
-    main_font = pygame.font.Font("Resource\Font\MASQUE__.ttf", 35)
-    font = pygame.font.Font('Resource\Font\infinite.ttf', 25)
-    font2 = pygame.font.Font('Resource\Font\infinite.ttf', 40)
-    font3 = pygame.font.Font("Resource\Font\infinite.ttf", 25)
-    font4 = pygame.font.Font("Resource\Font\infinite.ttf", 55)
+    main_font = pygame.font.Font("Resource/Font/MASQUE__.ttf", 35)
+    font = pygame.font.Font('Resource/Font/infinite.ttf', 25)
+    font2 = pygame.font.Font('Resource/Font/infinite.ttf', 40)
+    font3 = pygame.font.Font("Resource/Font/infinite.ttf", 25)
+    font4 = pygame.font.Font("Resource/Font/infinite.ttf", 55)
     def __init__(self, screen):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([500, 1600])
@@ -232,9 +233,9 @@ class SongList(pygame.sprite.Sprite):
             if self.MODE_SCROLL_UP:
                 return False
             self.list_focus -= 1
-            print self.list_focus
+            print (self.list_focus)
             self.start += 60
-            sound = pygame.mixer.Sound("Sound\sound1.ogg")
+            sound = pygame.mixer.Sound("Sound/sound1.ogg")
             sound.play()
             self.MODE_SCROLL_UP = True
 
@@ -242,9 +243,9 @@ class SongList(pygame.sprite.Sprite):
             if self.MODE_SCROLL_DOWN:
                 return False
             self.list_focus += 1
-            print self.list_focus
+            print (self.list_focus)
             self.start -= 60
-            sound = pygame.mixer.Sound("Sound\sound1.ogg")
+            sound = pygame.mixer.Sound("Sound/sound1.ogg")
             sound.play()
             self.MODE_SCROLL_DOWN = True
 
@@ -253,7 +254,7 @@ class SongList(pygame.sprite.Sprite):
             self.cover = pygame.Surface(Setting_Value.Display_Set.display_size)
             self.start_time = time.time()
             self.cover.fill(BLACK)
-            pygame.mixer.Sound("Sound\sound2.ogg").play()
+            pygame.mixer.Sound("Sound/sound2.ogg").play()
 
 
         if 1600 > self.mouse[0] > 400 and 300 > self.mouse[1] > 230:
@@ -263,7 +264,7 @@ class SongList(pygame.sprite.Sprite):
                 self.cover = pygame.Surface(Setting_Value.Display_Set.display_size)
                 self.start_time = time.time()
                 self.cover.fill(BLACK)
-                pygame.mixer.Sound("Sound\sound2.ogg").play()
+                pygame.mixer.Sound("Sound/sound2.ogg").play()
 
         self.margin_background = 0
         for image in self.List_Background:
@@ -344,30 +345,6 @@ class SongList(pygame.sprite.Sprite):
             if self.click[0] == 1:
                 self.MODE_FADE_OUT = False
 
-        # Set The Speed Of Song
-        if self.MODE_FADE_OUT:
-            self.end_time = time.time()
-            gap = (self.end_time - self.start_time)
-            if gap < 1:
-                self.cover.set_alpha(gap * 215)
-                self.screen.blit(self.cover, [0, 0])
-            else:
-                self.screen.blit(self.cover, [0, 0])
-                self.screen.blit(self.font.render("Set The Speed", True, WHITE), Setting_Value.Display_Set.SetTheSpeed)
-                self.screen.blit(self.font4.render(str(self.SongSpeed), True, WHITE), Setting_Value.Display_Set.SongSpeed)
-                self.screen.blit(self.font2.render("-", True, WHITE), Setting_Value.Display_Set.minus)
-                self.screen.blit(self.font2.render("+", True, WHITE), Setting_Value.Display_Set.plus)
-                if Setting_Value.Display_Set.plus_x + 65 > self.mouse[0] > Setting_Value.Display_Set.plus_x and Setting_Value.Display_Set.plus_y < self.mouse[1] < Setting_Value.Display_Set.plus_y + 55:
-                    if self.click[0]:
-                        if self.SongSpeed < 9:
-                            self.SongSpeed += 1
-                        pygame.time.delay(100)
-                if Setting_Value.Display_Set.minus_x + 65 > self.mouse[0] > Setting_Value.Display_Set.minus_x and Setting_Value.Display_Set.minus_y < self.mouse[1] <Setting_Value.Display_Set.minus_y + 55:
-                    if self.click[0]:
-                        if self.SongSpeed > 1:
-                            self.SongSpeed -= 1
-                        pygame.time.delay(100)
-
     def isGameReadyMode(self, bool = None):
         global MODE_GAME_READY
         if bool == None:
@@ -385,10 +362,10 @@ class SongList(pygame.sprite.Sprite):
 class TimeBar(pygame.sprite.Sprite):
     def __init__(self, screen):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("Resource\_bar.png")
+        self.image = pygame.image.load("Resource/_bar.png")
         self.image.set_colorkey(BLACK)
         self.image = pygame.transform.scale(self.image, (568, 120))
-        self.image2 = pygame.image.load("Resource\_bar2.png")
+        self.image2 = pygame.image.load("Resource/_bar2.png")
         self.length = 0
         self.screen = screen
         self.speed = 0
@@ -408,8 +385,8 @@ class TimeBar(pygame.sprite.Sprite):
 
 
 class SongInfo(pygame.sprite.Sprite):
-    font = pygame.font.Font('Resource\Font\MASQUE__.ttf', 20)
-    font2 = pygame.font.Font('Resource\Font\Infinite.ttf', 20)
+    font = pygame.font.Font('Resource/Font/MASQUE__.ttf', 20)
+    font2 = pygame.font.Font('Resource/Font/Infinite.ttf', 20)
 
     def __init__(self, screen, title, artist, album_art, speed, difficulty ,BPM = None):
         pygame.sprite.Sprite.__init__(self)
@@ -437,7 +414,7 @@ class SongInfo(pygame.sprite.Sprite):
 
 
 class SettingList(pygame.sprite.Sprite):
-    main_font = pygame.font.Font("Resource\Font\MASQUE__.ttf", 35)
+    main_font = pygame.font.Font("Resource/Font/MASQUE__.ttf", 35)
 
     def __init__(self, screen):
         pygame.sprite.Sprite.__init__(self)

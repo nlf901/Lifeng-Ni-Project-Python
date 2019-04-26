@@ -1,9 +1,9 @@
-import map
+import maps
 
 MapList = []
-song1 = map.Map("Songs\Cash_Cash_-_Overtime.ogg","Overtime", "Cash Cash", 5)
-song2 = map.Map("Songs\Zedd - Find You ft. Matthew Koma & Miriam Bryant (TAK Remix).ogg","Find You","Zedd",2)
-Clarity_Remix = map.Map("Songs\Clarity_Zedd_Union_Mix_Zedd_320k_mp3.ogg","Clarity(zedd union remix)","Zedd",1)
+song1 = maps.Map("Songs/Cash_Cash_-_Overtime.ogg","Overtime", "Cash Cash", 5)
+song2 = maps.Map("Songs/Zedd - Find You ft. Matthew Koma & Miriam Bryant (TAK Remix).ogg","Find You","Zedd",2)
+Clarity_Remix = maps.Map("Songs/Clarity_Zedd_Union_Mix_Zedd_320k_mp3.ogg","Clarity(zedd union remix)","Zedd",1)
 
 MapList.append(song1)
 MapList.append(song2)

@@ -3,24 +3,24 @@ class Display_size:
 
     def __init__(self, type=1):
         if type == 1:
-            # Window size as 1366 x 768
+            # Window size as 1200 x 800
             # Main Position
-            self.display_size = (1366, 768)
+            self.display_size = (1200, 800)
             self.center = (573, 324)
-            self.main_btn_x =  940
+            self.main_btn_x =  949
             self.main_btn_start_y = 100
             self.main_btn_set_y = 350
             self.main_btn_exitt_y = 600
 
             # SongList Position
-            self.easy_x = 90
-            self.easy_y = 530
-			self.normal_x = self.easy_x
-			self.normal_y = self.easy_y + 150
+            self.easy_x = 130
+            self.easy_y = 610
+            self.normal_x = self.easy_x
+            self.normal_y = self.easy_y + 50
             self.hard_x = self.easy_x + 125
             self.hard_y = self.easy_y
-			self.master_x = self.easy_x + 125
-			self.master_y = self.easy_y + 150
+            self.master_x = self.easy_x + 125
+            self.master_y = self.easy_y + 50
             self.bg_margin = 768
             self.scroll_speed = 128
             self.SongList  = (150, 130)
@@ -29,16 +29,6 @@ class Display_size:
             self.title = (160, 440)
             self.artist = (160, 490)
             self.difficulty = (160, 540)
-
-            # Game_Ready_State Position
-            self.SetTheSpeed = (595, 300)
-            self.SongSpeed = (665, 350)
-            self.plus_x = 745
-            self.plus_y = 350
-            self.plus = (self.plus_x, self.plus_y)
-            self.minus_x = 600
-            self.minus_y = 350
-            self.minus = (self.minus_x, self.minus_y)
 
             # Game Position
             self.node_x = 110
@@ -63,8 +53,8 @@ class Display_size:
             self.menuBar_pos = 916
 
         elif type == 2:
-            # Change window size to 1600 x 1200
-            self.display_size = (1600, 1200)
+            # Change window size to 1200 x 800 
+            self.display_size = (1200, 800)
             self.main_btn_x = 1200
             self.main_btn_start_y = 300
             self.main_btn_set_y = 600
@@ -76,8 +66,8 @@ class Display_size:
 
     def change_display_size(self, type):
         if type == 1:
-            # Window size as 1366 x 768
-            self.display_size = (1366, 768)
+            # Window size as 1200 x 800
+            self.display_size = (1200, 800)
             self.main_btn_x =  940
             self.main_btn_start_y = 100
             self.main_btn_set_y = 350
@@ -85,14 +75,14 @@ class Display_size:
             self.bg_margin = 768
             self.scroll_speed = 128
 
-            self.easy_x = 90
-            self.easy_y = 530
-			self.normal_x = self.easy_x
-			self.normal_y = self.easy_y + 150
+            self.easy_x = 130
+            self.easy_y = 610
+            self.normal_x = self.easy_x
+            self.normal_y = self.easy_y + 50
             self.hard_x = self.easy_x + 125
             self.hard_y = self.easy_y
-			self.master_x = self.easy_x + 125
-			self.master_y = self.easy_y + 150
+            self.master_x = self.easy_x + 125
+            self.master_y = self.easy_y + 50
 
 Display_Set = Display_size()
 

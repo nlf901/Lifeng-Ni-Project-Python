@@ -1,9 +1,7 @@
 import pygame
 import math
-import eyed3
 import Setting_Value
 import time
-import effect
 
 pygame.init()
 
@@ -32,10 +30,8 @@ class Map(pygame.sprite.Sprite):
     def __init__(self, file, title, artist, level, highlight=0, album_art=None, screen=None):
         # Read the Play time of MP3 File
         pygame.sprite.Sprite.__init__(self)
-        self.sound = pygame.mixer.Sound(file)
         self.file = file
-        self.tag = eyed3.load(file)
-
+        self.sound = pygame.mixer.Sound(file)
         self.song_title = title
         self.artist = artist
         self.playtime = pygame.mixer.Sound.get_length(self.sound) # Second
@@ -62,7 +58,7 @@ class Map(pygame.sprite.Sprite):
         self.index_SyncTime = 0
         self.index_LongNote = 0
 		
-		# Normal Mode Map
+	# Normal Mode Map
         self.Group_Note_Map_Normal = []
         self.Group_Note_Map_SyncTime_Normal = []
         self.Group_LongNote_Map_Length_Normal = []
@@ -78,7 +74,7 @@ class Map(pygame.sprite.Sprite):
         self.index_SyncTime_Hard = 0
         self.index_LongNote_Hard = 0
 
-		# Master Mode Map
+	# Master Mode Map
         self.Group_Note_Map_Master = []
         self.Group_Note_Map_SyncTime_Master = []
         self.Group_LongNote_Map_Length_Master = []
@@ -94,7 +90,7 @@ class Map(pygame.sprite.Sprite):
         else:
             self.Group_LongNote_Map_Length.append(0)
 
-	def add_note_normal(self, type, sync_time, length = None):
+    def add_note_normal(self, type, sync_time, length = None):
         self.Group_Note_Map_Normal.append(type)
         self.Group_Note_Map_SyncTime_Normal.append(sync_time)
         if length != None:
@@ -110,7 +106,7 @@ class Map(pygame.sprite.Sprite):
         else:
             self.Group_LongNote_Map_Length_Hard.append(0)
 	
-	def add_note_master(self, type, sync_time, length = None):
+    def add_note_master(self, type, sync_time, length = None):
         self.Group_Note_Map_Master.append(type)
         self.Group_Note_Map_SyncTime_Master.append(sync_time)
         if length != None:
@@ -141,30 +137,30 @@ class Map(pygame.sprite.Sprite):
             return self.Group_Note_Map[self.index_map]
         elif self.mode == 2:
             return self.Group_Note_Map_Normal[self.index_map_Normal]
-		elif self.mode == 3:
-		    return self.Group_Note_Map_Hard[self.index_map_Hard]
-		else:
-		    return self.Group_Note_Map_Master[self.index_map_Master]
+        elif self.mode == 3:
+            return self.Group_Note_Map_Hard[self.index_map_Hard]
+        else:
+            return self.Group_Note_Map_Master[self.index_map_Master]
 
     def get_long_note_length(self):
         if self.mode == 1:
             return self.Group_LongNote_Map_Length[self.index_map]
         elif self.mode == 2:
             return self.Group_LongNote_Map_Normal[self.index_map_Normal]
-		elif self.mode == 3:
-		    return self.Group_LongNote_Map_Hard[self.index_map_Hard]
-		else:
-		    return self.Group_LongNote_Map_Master[self.index_map_Master]
+        elif self.mode == 3:
+            return self.Group_LongNote_Map_Hard[self.index_map_Hard]
+        else:
+            return self.Group_LongNote_Map_Master[self.index_map_Master]
 
     def get_sync(self):
         if self.mode == 1:
             return self.Group_Note_Map_SyncTime[self.index_SyncTime]
-		elif self mode == 2:
-		    return self.Group_Note_Map_SyncTime_Normal[self.index_SyncTime_Normal] 
+        elif self.mode == 2:
+            return self.Group_Note_Map_SyncTime_Normal[self.index_SyncTime_Normal] 
         elif self.mode == 3:
             return self.Group_Note_Map_SyncTime_Hard[self.index_SyncTime_Hard]
-		else:
-		    return self.Group_Note_Map_SyncTime_Master[self.index_SyncTime_Master]
+        else:
+            return self.Group_Note_Map_SyncTime_Master[self.index_SyncTime_Master]
 
     def move_sync_index(self):
         if self.mode == 1:
@@ -172,7 +168,7 @@ class Map(pygame.sprite.Sprite):
                 self.index_SyncTime += 1
                 return True
             return False
-		elif self.mode == 2:
+        elif self.mode == 2:
             if self.index_SyncTime_Normal < len(self.Group_Note_Map_SyncTime_Normal) - 1:
                 self.index_SyncTime_Normal += 1
                 return True
@@ -182,7 +178,7 @@ class Map(pygame.sprite.Sprite):
                 self.index_SyncTime_Hard += 1
                 return True
             return False
-		else:
+        else:
             if self.index_SyncTime_Master < len(self.Group_Note_Map_SyncTime_Master) - 1:
                 self.index_SyncTime_Master += 1
                 return True
@@ -192,13 +188,13 @@ class Map(pygame.sprite.Sprite):
         if self.mode == 1:
             if self.index_map < len(self.Group_Note_Map) - 1:
                 self.index_map += 1
-		elif self.mode == 2:
+        elif self.mode == 2:
             if self.index_map_Normal < len(self.Group_Note_Map_Normal) - 1:
                 self.index_map_Normal += 1
         elif self.mode == 3:
             if self.index_map_Hard < len(self.Group_Note_Map_Hard) - 1:
                 self.index_map_Hard += 1
-		else:
+        else:
             if self.index_map_Master < len(self.Group_Note_Map_Master) - 1:
                 self.index_map_Master += 1
 
@@ -206,19 +202,19 @@ class Map(pygame.sprite.Sprite):
         # Last Note is Dummy Note
         if self.mode == 1:
             return self.Group_Note_Map.__len__() - 1
-	    elif self.mode == 2:
-		    return self.Group_Note_Map_Normal.__len__() - 1
+        elif self.mode == 2:
+            return self.Group_Note_Map_Normal.__len__() - 1
         elif self.mode == 3:
             return self.Group_Note_Map_Hard.__len__() - 1
-		else:
-		    return self.Group_Note_Map_Master.__len__() - 1
+        else:
+            return self.Group_Note_Map_Master.__len__() - 1
 
     def init_index(self):
         self.index_SyncTime = 0
         self.index_map = 0
         self.index_LongNote = 0
 
-		self.index_SyncTime_Normal = 0
+        self.index_SyncTime_Normal = 0
         self.index_map_Normal = 0
         self.index_LongNote_Normal = 0
 		
@@ -226,7 +222,7 @@ class Map(pygame.sprite.Sprite):
         self.index_map_Hard = 0
         self.index_LongNote_Hard = 0
 		
-		self.index_SyncTime_Master = 0
+        self.index_SyncTime_Master = 0
         self.index_map_Master = 0
         self.index_LongNote_Master = 0
 
@@ -243,11 +239,11 @@ class note(pygame.sprite.Sprite):
         self.screen = screen
         self.width = width
         if type == 1:
-            self.image = pygame.image.load("Resource\_note\_note1.jpg").convert()
+            self.image = pygame.image.load("Resource/_note/_note1.jpg").convert()
         elif type == 2:
-            self.image = pygame.image.load("Resource\_note\_note2.jpg").convert()
+            self.image = pygame.image.load("Resource/_note/_note2.jpg").convert()
         else:
-            self.image = pygame.image.load("Resource\_note\_note3.jpg").convert()
+            self.image = pygame.image.load("Resource/_note/_note3.jpg").convert()
         self.image = pygame.transform.scale(self.image,(width, height))
         self.rect = self.image.get_rect()
         self.speed = speed
@@ -281,58 +277,58 @@ class note(pygame.sprite.Sprite):
         if self.isLongNote:
             if isFirstPressed:
                 if (self.rect.x + self.width)/3 *2 < Setting_Value.Display_Set.note_judge_margin and KeyUp:
-                    print 'done'
+                    print ('done')
                     combo(1)
                     self.note_fade_out(True)
                     score(self.LongNote_judge)
                     is_first_pressed(False)
                 elif KeyUp:
-                    print 'miss1'
+                    print ('miss1')
                     combo(0, True)
                     self.note_fade_out(True)
                     score(3)
                     is_first_pressed(False)
             elif Setting_Value.Display_Set.note_judge_margin < self.rect.x < Setting_Value.Display_Set.note_judge_margin + 30 and KeyPressed and self.type == type:
-                print 'miss'
+                print ('miss')
                 combo(0, True)
                 self.note_fade_out(True)
                 self.LongNote_judge = 3
                 miss(1)
             elif Setting_Value.Display_Set.note_judge_margin - 25 <= self.rect.x < Setting_Value.Display_Set.note_judge_margin and KeyPressed and self.type == type:
-                print 'great'
+                print ('great')
                 is_first_pressed(True)
                 self.LongNote_judge = 2
             elif Setting_Value.Display_Set.note_judge_margin - 57 <= self.rect.x < Setting_Value.Display_Set.note_judge_margin - 25 and KeyPressed and self.type == type:
-                print 'perfect'
+                print ('perfect')
                 is_first_pressed(True)
                 self.LongNote_judge = 1
             elif not KeyPressed and self.rect.x < Setting_Value.Display_Set.note_judge_margin - 57:
                 if self.rect.x + self.width < 230:
-                    print 'miss'
+                    print ('miss')
                     combo(0, True)
                     self.note_fade_out(True)
                     score(3)
         else:
             if Setting_Value.Display_Set.note_judge_margin < self.rect.x < Setting_Value.Display_Set.note_judge_margin + 30 and KeyPressed and self.type == type:
-                print 'miss'
+                print ('miss two')
                 combo(0, True)
                 self.note_fade_out(True)
                 score(3)
                 miss(1)
             elif Setting_Value.Display_Set.note_judge_margin - 25 <= self.rect.x < Setting_Value.Display_Set.note_judge_margin and KeyPressed and self.type == type:
-                print 'great'
+                print ('great')
                 combo(1)
                 self.note_fade_out(True)
                 score(2)
                 great(1)
             elif Setting_Value.Display_Set.note_judge_margin - 57 < self.rect.x < Setting_Value.Display_Set.note_judge_margin - 25 and KeyPressed and self.type == type:
-                print 'perfect'
+                print ('perfect')
                 combo(1)
                 self.note_fade_out(True)
                 score(1)
                 perfect(1)
             elif self.rect.x < Setting_Value.Display_Set.note_judge_margin -57:
-                print 'miss3'
+                print ('miss three')
                 combo(0,True)
                 self.note_fade_out(True)
                 score(3)

@@ -4,9 +4,8 @@ import UI
 import Setting_Value
 import time
 import node
-import map
+import maps
 import math
-import effect
 import random
 
 pygame.display.init()
@@ -15,8 +14,8 @@ pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.init()
 
 size = Setting_Value.Display_Set.display_size
-screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
-pygame.display.set_caption("BLUE!")
+screen = pygame.display.set_mode(size)
+pygame.display.set_caption("AniBeat!")
 
 import MapList
 
@@ -34,13 +33,11 @@ tmp = pygame.Surface(Setting_Value.Display_Set.display_size)
 tmp.fill(UI.BLACK)
 
 start_button = UI.button_main(screen, "START", Setting_Value.Display_Set.main_btn_x,
-                              Setting_Value.Display_Set.main_btn_start_y, 60)
-setting_button = UI.button_main(screen, "SETTING", Setting_Value.Display_Set.main_btn_x,
-                                Setting_Value.Display_Set.main_btn_set_y, 60)
+                              Setting_Value.Display_Set.main_btn_start_y, 50)
 exit_button = UI.button_main(screen, "EXIT", Setting_Value.Display_Set.main_btn_x,
-                             Setting_Value.Display_Set.main_btn_exitt_y, 60)
+                             Setting_Value.Display_Set.main_btn_exitt_y, 50)
 
-button_group = pygame.sprite.RenderPlain([start_button, setting_button, exit_button])
+button_group = pygame.sprite.RenderPlain([start_button, exit_button])
 
 Mode_Select = UI.button_SongList(screen, "EASY", Setting_Value.Display_Set.easy_x, Setting_Value.Display_Set.easy_y,
                                  "NORMAL", Setting_Value.Display_Set.normal_x, Setting_Value.Display_Set.normal_y,
@@ -49,14 +46,14 @@ Mode_Select = UI.button_SongList(screen, "EASY", Setting_Value.Display_Set.easy_
 
 
 # Font and Image
-main_font = pygame.font.Font("Resource\Font\MASQUE__.ttf",35)
-main_font2 = pygame.font.Font("Resource\Font\MASQUE__.ttf",20)
-main_font3 = pygame.font.Font("Resource\Font\MASQUE__.ttf",60)
-number_font = pygame.font.Font("Resource\Font\Infinite.ttf",35)
+main_font = pygame.font.Font("Resource/Font/MASQUE__.ttf",35)
+main_font2 = pygame.font.Font("Resource/Font/MASQUE__.ttf",20)
+main_font3 = pygame.font.Font("Resource/Font/MASQUE__.ttf",50)
+number_font = pygame.font.Font("Resource/Font/Infinite.ttf",35)
 background = pygame.image.load("image2.jpg").convert()
-main_bck = pygame.image.load("Resource\main_background.jpg").convert()
+main_bck = pygame.image.load("Resource/main_background.jpg").convert()
 main_bck.set_alpha(80)
-drawer = pygame.image.load("Resource\Drawer.png").convert()
+drawer = pygame.image.load("Resource/Drawer.png").convert()
 drawer.set_colorkey(UI.BLACK)
 
 # Back Button
@@ -70,14 +67,12 @@ for Map in MapList.MapList:
 # Setting
 Setting = UI.SettingList(screen)
 
-# Background Music
-
+# Initial
 Selected = 1
 alpha = 0
 comp = 0
 
 # About Game
-
 node1 = node.node(Setting_Value.Display_Set.node_x, Setting_Value.Display_Set.node1_y, 47, 128, 1, screen)
 node2 = node.node(Setting_Value.Display_Set.node_x, Setting_Value.Display_Set.node2_y, 47, 128, 2, screen)
 node3 = node.node(Setting_Value.Display_Set.node_x, Setting_Value.Display_Set.node3_y, 47, 128, 3, screen)
@@ -101,24 +96,22 @@ clock = pygame.time.Clock()
 
 # -------- Main Program Loop -----------
 while not done:
-
     # --- Main event loop
     for event in pygame.event.get():  # User input
         if event.type == pygame.QUIT:  # if quit
             pygame.mixer.music.stop()
             done = True
-
         if event.type == pygame.KEYDOWN and MAIN_FADE_OUT_STATE:
             if event.key == pygame.K_KP_ENTER:
                 GAME_READY_STATE = True
-                pygame.mixer.music.fadeout(1500)
+                pygame.mixer.music.fadeout(500)
                 List.isGameReadyMode(True)
                 start_time = time.time()
         if event.type == pygame.KEYDOWN and (MAIN_STATE == True) and (MAIN_FADE_OUT_STATE == False):
             if event.key == pygame.K_UP:
                 List.update(True,False)
             if event.key == pygame.K_DOWN:
-               List.update(False,True)
+                List.update(False,True)
             if event.key == pygame.K_KP_ENTER :
                 List.update(False,False,False,False,True)
                 MAIN_FADE_OUT_STATE =True
@@ -126,7 +119,7 @@ while not done:
                 MAIN_STATE = False
                 INTRO_STATE = True
                 pygame.mixer.music.stop()
-                pygame.time.delay(300)
+                pygame.time.delay(100)
         if event.type == pygame.MOUSEBUTTONDOWN and MAIN_STATE and MAIN_FADE_OUT_STATE == False:
             if event.button == 5:
                 List.update(False, True)
@@ -139,7 +132,7 @@ while not done:
         if event.type == pygame.MOUSEBUTTONDOWN and MAIN_FADE_OUT_STATE:
             if event.button == 5:
                 List.update()
-
+        pygame.display.update()
     if GAME_STATE:
 
         while COMPLETE_STATE:
@@ -163,15 +156,14 @@ while not done:
                         pygame.time.delay(200)
                         COMPLETE_STATE = False
                         GAME_READY_STATE = False
-
             # --- Go ahead and update the screen with what we've drawn.
-            pygame.display.flip()
+            pygame.display.update()
             # --- Limit to 60 frames per second
             clock.tick(60)
 
         tmp.set_alpha(75)
         screen.blit(tmp, [0, 0])
-
+        
         while PAUSE:
             if Back_Btn.update():
                 pygame.mixer.unpause()
@@ -193,6 +185,7 @@ while not done:
                         pygame.mixer.unpause()
                         PAUSE = False
                         GAME_READY_STATE = False
+                pygame.display.update()
             # --- Go ahead and update the screen with what we've drawn.
             pygame.display.flip()
             # --- Limit to 60 frames per second
@@ -231,10 +224,10 @@ while not done:
             else:
                 # Get Selected Mode of Song
                 MapList.MapList[List.get_selected_Song()].set_mode(Mode_Select.get_mode())
-                print Mode_Select.get_mode()
+                print (Mode_Select.get_mode())
                 # Right before Game Begin
                 for i in range(0, MapList.MapList[List.get_selected_Song()].get_note_count()):
-                    # 노트 초기화의 과정(Note Initializing)
+                    # Note Initializing
                     if MapList.MapList[List.get_selected_Song()].get_long_note_length():
                         # case Long Note
                         NoteList.append(map.note(screen, MapList.MapList[List.get_selected_Song()].get_long_note_length(), 128, MapList.MapList[0].get_note(), 
@@ -258,16 +251,13 @@ while not done:
                 start_time = time.time()
                 break
             screen.blit(title, Setting_Value.Display_Set.center)
-
             # --- Go ahead and update the screen with what we've drawn.
-            pygame.display.flip()
+            pygame.display.update()
             # --- Limit to 60 frames per second
             clock.tick(60)
-
         # When Game is Playing
         while pygame.mixer.get_busy() and not PAUSE:
             end_time = MapList.MapList[List.get_selected_Song()].playtime
-
             if time.time() - start_time > end_time:
                 pygame.mixer.quit()
                 COMPLETE_STATE = True
@@ -297,10 +287,7 @@ while not done:
             screen.blit(number_font.render(str(map.score(0)), True, UI.WHITE), Setting_Value.Display_Set.score)
 
             node_group.update(False, False)
-            effect.note_anim1.blit(screen,(Setting_Value.Display_Set.node_x + 27, Setting_Value.Display_Set.node1_y -64))
-            effect.note_anim2.blit(screen,(Setting_Value.Display_Set.node_x + 27, Setting_Value.Display_Set.node2_y -64))
-            effect.note_anim3.blit(screen,(Setting_Value.Display_Set.node_x + 27, Setting_Value.Display_Set.node3_y -64))
-
+            
             if time.time() - start_time >= MapList.MapList[List.get_selected_Song()].get_sync() - comp:
                 if MapList.MapList[List.get_selected_Song()].move_sync_index():
                     MODE_NOTE_FALL = True
@@ -317,61 +304,50 @@ while not done:
                     pygame.mixer.stop()
                     GAME_STATE = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        effect.note_anim1.play()
+                    if event.key == pygame.K_a:                      
                         for i in range(map.killed_note(0), Note_Count):
                             NoteList_Drawer[i].update(1, True)
                         node1.update(True, False, 1)
                     if event.key == pygame.K_s:
-                        effect.note_anim2.play()
                         for i in range(map.killed_note(0), Note_Count):
                             NoteList_Drawer[i].update(2, True)
                         node2.update(True, False, 2)
                     if event.key == pygame.K_d:
-                        effect.note_anim3.play()
                         for i in range(map.killed_note(0), Note_Count):
                             NoteList_Drawer[i].update(3, True)
                         node3.update(True, False, 3)
                     if event.key == pygame.K_ESCAPE:
                         pygame.mixer.pause()
                         PAUSE = True
-
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
-                        effect.note_anim1.stop()
                         for i in range(map.killed_note(0), Note_Count):
                             NoteList_Drawer[i].update(1, True, True)
                         node1.update(False, True, 1)
                     if event.key == pygame.K_s:
-                        effect.note_anim2.stop()
                         for i in range(map.killed_note(0), Note_Count):
                             NoteList_Drawer[i].update(2, True, True)
                         node2.update(False, True, 2)
                     if event.key == pygame.K_d:
-                        effect.note_anim3.stop()
                         for i in range(map.killed_note(0), Note_Count):
                             NoteList_Drawer[i].update(3, True, True)
                         node3.update(False, True, 3)
+                pygame.display.update()
             # --- Go ahead and update the screen with what we've drawn.
-            pygame.display.flip()
+            pygame.display.update()
             # --- Limit to 60 frames per second
             clock.tick(60)
 
     # --- INTRO SCENE LOOP ---
     elif INTRO_STATE:
         # Intro Scene
-
         screen.fill(UI.BLACK)
         screen.blit(main_bck, [0,0])
-
         button_group.draw(screen)
 
         if 2 == start_button.update(1):
             INTRO_STATE = False
             MAIN_STATE = True
-        if 3 == setting_button.update(2):
-            SETTING_STATE = True
-            INTRO_STATE = False
         if 4 == exit_button.update(3):
             pygame.mixer.music.fadeout(2700)
             pygame.time.delay(3000)
@@ -379,7 +355,7 @@ while not done:
             pygame.mixer.music.stop()
             pygame.time.delay(500)
             exit()
-        pygame.display.flip()
+        pygame.display.update()
         clock.tick(60)
 
     # --- SONG_LIST SCENE LOOP ---
@@ -405,29 +381,37 @@ while not done:
         click = pygame.mouse.get_pressed()
 
         # Difficulty button
-        if Setting_Value.Display_Set.easy_x + 85 > mouse[0] > Setting_Value.Display_Set.easy_x and Setting_Value.Display_Set.easy_y < mouse[1] < Setting_Value.Display_Set.easy_y + 30:
+        x1 = Setting_Value.Display_Set.easy_x
+        x2 = Setting_Value.Display_Set.normal_x
+        x3 = Setting_Value.Display_Set.hard_x
+        x4 = Setting_Value.Display_Set.master_x
+        y1 = Setting_Value.Display_Set.easy_y
+        y2 = Setting_Value.Display_Set.normal_y
+        y3 = Setting_Value.Display_Set.hard_y
+        y4 = Setting_Value.Display_Set.master_y
+        if (x1+85) > mouse[0]> x1 and y1 < mouse[1] < (y1+30):
             if click[0] == 1:
-                pygame.mixer.Sound("Sound\sound3.ogg").play()
+                pygame.mixer.Sound("Sound/sound3.ogg").play()
                 Selected = 1
-                Mode_select.update(Selected)
+                Mode_Select.update(Selected)
                 pygame.time.delay(100)
-		elif Setting_Value.Display_Set.normal_x + 85 > mouse[0] > Setting_Value.Display_Set.normal_x and Setting_Value.Display_Set.normal_y < mouse[1] < Setting_Value.Display_Set.normal_y + 30:
+        elif (x2+85) > mouse[0] > x2 and y2 < mouse[1] < (y2+30):
             if click[0] == 1:
-                pygame.mixer.Sound("Sound\sound3.ogg").play()
+                pygame.mixer.Sound("Sound/sound3.ogg").play()
                 Selected = 2
-                Mode_select.update(Selected)
+                Mode_Select.update(Selected)
                 pygame.time.delay(100)
-        elif Setting_Value.Display_Set.hard_x + 85 > mouse[0] > Setting_Value.Display_Set.hard_x and Setting_Value.Display_Set.hard_y < mouse[1] < Setting_Value.Display_Set.hard_y + 30:
+        elif (x3+85) > mouse[0] > x3 and y3 < mouse[1] < (y3+30):
             if click[0] == 1:
-                pygame.mixer.Sound("Sound\sound3.ogg").play()
+                pygame.mixer.Sound("Sound/sound3.ogg").play()
                 Selected = 3
-                Mode_select.update(Selected)
+                Mode_Select.update(Selected)
                 pygame.time.delay(100)
-		elif Setting_Value.Display_Set.master_x + 85 > mouse[0] > Setting_Value.Display_Set.master_x and Setting_Value.Display_Set.master_y < mouse[1] < Setting_Value.Display_Set.master_y + 30:
+        elif (x4+85) > mouse[0] > x4 and y4 < mouse[1] < (y4+30):
             if click[0] == 1:
-                pygame.mixer.Sound("Sound\sound3.ogg").play()
+                pygame.mixer.Sound("Sound/sound3.ogg").play()
                 Selected = 4
-                Mode_select.update(Selected)
+                Mode_Select.update(Selected)
                 pygame.time.delay(100)
         if GAME_READY_STATE:
             gap = (time.time() - start_time)
@@ -463,36 +447,13 @@ while not done:
                     PAUSE = False
                     MapList.MapList[List.get_selected_Song()].init_index()
                     MapList.MapList[List.get_selected_Song()].set_speed(List.SongSpeed-1)
-                    map.killed_note(0, True)
-                    map.combo(0, True)
-                    map.score(-1, MapList.MapList[List.get_selected_Song()])
+                    maps.killed_note(0, True)
+                    maps.combo(0, True)
+                    maps.score(-1, MapList.MapList[List.get_selected_Song()])
                     start_time = time.time()
-
+    
         # --- Go ahead and update the screen with what we've drawn.
-        pygame.display.flip()
+        pygame.display.update()
 
         # --- Limit to 60 frames per second
         clock.tick(60)
-
-    # --- SETTING BAR LOOP ---
-    elif SETTING_STATE:
-
-
-        """
-        Setting_Value.Display_Set.change_display_size(2)
-        screen = pygame.display.set_mode(Setting_Value.Display_Set.display_size, pygame.FULLSCREEN)
-        """
-
-
-        if Back_Btn.update():
-            SETTING_STATE = False
-            INTRO_STATE = True
-
-        Setting.update()
-        # --- Go ahead and update the screen with what we've drawn.
-        pygame.display.flip()
-
-        # --- Limit to 60 frames per second
-        clock.tick(60)
-
-
